@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Juego Energías Renovables — Colombia & Biblia</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b2545;--accent:#1fb6ff;--text:#e6f0ff}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#071125 0%,#0b1b2b 100%);color:var(--text);display:flex;flex-direction:column;min-height:100vh}
+    header{padding:18px 20px;display:flex;align-items:center;justify-content:space-between}
+    h1{font-size:1.1rem;margin:0}
+    main{flex:1;padding:20px;display:flex;flex-direction:column;gap:18px;align-items:center}
+    nav{display:flex;gap:10px;margin-bottom:15px}
+    nav button{background:var(--card);border:1px solid rgba(255,255,255,0.1);color:var(--text);padding:8px 12px;border-radius:6px;cursor:pointer}
+    nav button.active{background:var(--accent);color:#012233}
+    .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;width:100%;max-width:900px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.05));border-radius:10px;padding:12px;min-height:90px;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;position:relative;transform-style:preserve-3d;transition:transform .35s;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .card.flipped{transform:rotateY(180deg)}
+    .face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:8px;backface-visibility:hidden;border-radius:10px}
+    .front{background:var(--card);color:var(--text);font-weight:600}
+    .back{background:linear-gradient(90deg,var(--accent),#2dd4bf);color:#03263b;transform:rotateY(180deg);font-size:.9rem;padding:10px;text-align:center}
+    .controls{display:flex;gap:10px;align-items:center}
+    button{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.08);padding:8px 12px;border-radius:8px;cursor:pointer}
+    button.primary{background:var(--accent);color:#012233;border:none}
+    footer{padding:8px 20px;font-size:.85rem;color:rgba(230,240,255,0.7)}
+    .info{max-width:900px;text-align:center}
+    .status{font-weight:700}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Juegos: Energías Renovables en Colombia y la Biblia</h1>
+    <div class="controls">
+      <button id="shuffleBtn">🔀 Mezclar</button>
+      <button id="resetBtn" class="primary">🔁 Nuevo juego</button>
+    </div>
+  </header>
+
+  <main>
+    <nav>
+      <button id="tabColombia" class="active">🇨🇴 Historia Colombia</button>
+      <button id="tabBiblia">📖 Energías en la Biblia</button>
+    </nav>
+
+    <div class="info">
+      <p id="infoText">Encuentra los pares: evento y descripción de la historia de energía renovable en Colombia.</p>
+      <p class="status" id="status">Haz clic en dos cartas para descubrir pares.</p>
+    </div>
+
+    <section class="board" id="board" aria-live="polite"></section>
+
+    <div style="max-width:900px;text-align:center;color:rgba(230,240,255,0.8)">
+      <small>Juego educativo listo para subir a GitHub. Incluye datos de Colombia y referencias bíblicas.</small>
+    </div>
+  </main>
+
+  <footer>
+    Tip: presiona <strong>Nuevo juego</strong> para regenerar y practicar.
+  </footer>
+
+  <script>
+    // ====== Data ======
+    const EVENTS_COLOMBIA = [
+      {id:1, title:'Primera hidroeléctrica en Colombia', desc:'La planta de El Charquito (Bogotá, 1890) marcó el inicio de la energía hidroeléctrica en el país.'},
+      {id:2, title:'EPM y desarrollo hidroeléctrico', desc:'En 1955, Empresas Públicas de Medellín impulsó proyectos clave como Guadalupe y Playas.'},
+      {id:3, title:'Proyecto Hidroituango', desc:'La mayor hidroeléctrica de Colombia, clave en la matriz energética del siglo XXI.'},
+      {id:4, title:'Energía eólica en La Guajira', desc:'Desde 2004, Jepírachi se consolidó como pionero en parques eólicos en Colombia.'},
+      {id:5, title:'Expansión solar', desc:'En la década de 2010-2020 crecieron proyectos solares a gran escala en Cesar y La Guajira.'}
+    ];
+
+    const EVENTS_BIBLIA = [
+      {id:1, title:'Energía eólica', desc:'Jonás 1:4 → “El Señor envió un gran viento sobre el mar”'},
+      {id:2, title:'Energía solar', desc:'Josué 10:13 → “Y el sol se detuvo” mostrando poder sobre la energía solar'},
+      {id:3, title:'Energía hidráulica', desc:'Éxodo 14:21 → “El Señor hizo que el mar se retirara con un fuerte viento”'},
+      {id:4, title:'Fuego como energía', desc:'Éxodo 3:2 → “Una zarza ardía en fuego y no se consumía”'},
+      {id:5, title:'Control de lluvias', desc:'1 Reyes 17:1 → “No habrá lluvia ni rocío” hasta que Elías lo diga'}
+    ];
+
+    // ====== Core functions ======
+    function makeDeck(events){
+      const deck = [];
+      events.forEach(ev=>{
+        deck.push({type:'title', id:ev.id, text:ev.title});
+        deck.push({type:'desc', id:ev.id, text:ev.desc});
+      });
+      return deck;
+    }
+
+    function shuffle(array){
+      for(let i=array.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [array[i],array[j]]=[array[j],array[i]];
+      }
+      return array;
+    }
+
+    const boardEl=document.getElementById('board');
+    const statusEl=document.getElementById('status');
+    const shuffleBtn=document.getElementById('shuffleBtn');
+    const resetBtn=document.getElementById('resetBtn');
+    const tabColombia=document.getElementById('tabColombia');
+    const tabBiblia=document.getElementById('tabBiblia');
+    const infoText=document.getElementById('infoText');
+
+    let activeSet='colombia';
+    let deck, firstCard=null, secondCard=null, lock=false, matches=0, attempts=0;
+
+    function render(){
+      boardEl.innerHTML='';
+      deck.forEach((card, idx)=>{
+        const el=document.createElement('button');
+        el.className='card';
+        el.setAttribute('data-idx', idx);
+        el.innerHTML=`<div class="face front">❓</div><div class="face back">${escapeHtml(card.text)}</div>`;
+        el.addEventListener('click',()=>onCardClick(el, card));
+        boardEl.appendChild(el);
+      });
+      updateStatus();
+    }
+
+    function onCardClick(el, card){
+      if(lock||el.classList.contains('matched')||el.classList.contains('flipped'))return;
+      el.classList.add('flipped');
+      if(!firstCard){firstCard={el,card};return;}
+      secondCard={el,card};attempts++;checkMatch();
+    }
+
+    function checkMatch(){
+      lock=true;
+      const match=firstCard.card.id===secondCard.card.id&&firstCard.card.type!==secondCard.card.type;
+      if(match){
+        setTimeout(()=>{firstCard.el.classList.add('matched');secondCard.el.classList.add('matched');resetPick();matches++;},350);
+      }else{
+        setTimeout(()=>{firstCard.el.classList.remove('flipped');secondCard.el.classList.remove('flipped');resetPick();},700);
+      }
+    }
+
+    function resetPick(){firstCard=null;secondCard=null;lock=false;updateStatus();if(matches===5){statusEl.textContent=`¡Ganaste en ${attempts} intentos!`;}}
+
+    function updateStatus(){statusEl.textContent=`Pares: ${matches}/5 — Intentos: ${attempts}`;}
+
+    function startNewGame(){
+      const events=activeSet==='colombia'?EVENTS_COLOMBIA:EVENTS_BIBLIA;
+      deck=shuffle(makeDeck(events));
+      firstCard=null;secondCard=null;lock=false;matches=0;attempts=0;
+      render();
+    }
+
+    function escapeHtml(str){return String(str).replace(/[&<>"']/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;','\'':'&#39;'}[s]));}
+
+    shuffleBtn.addEventListener('click',()=>{deck=shuffle(deck);render();});
+    resetBtn.addEventListener('click',startNewGame);
+    tabColombia.addEventListener('click',()=>{activeSet='colombia';tabColombia.classList.add('active');tabBiblia.classList.remove('active');infoText.textContent='Encuentra los pares: evento y descripción de la historia de energía renovable en Colombia.';startNewGame();});
+    tabBiblia.addEventListener('click',()=>{activeSet='biblia';tabBiblia.classList.add('active');tabColombia.classList.remove('active');infoText.textContent='Encuentra los pares: concepto de energía y su cita bíblica.';startNewGame();});
+
+    // Init
+    startNewGame();
+  </script>
+</body>
+</html>
