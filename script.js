@@ -1,4 +1,4 @@
-const tabButtons = document.querySelectorAll(".tab-button");
+ const tabButtons = document.querySelectorAll(".tab-button");
 const tabContents = document.querySelectorAll(".tab-content");
 
 tabButtons.forEach(btn => {
@@ -260,7 +260,7 @@ document.querySelectorAll('.drop').forEach(drop => {
 
 /*pantanos*/
 // ✅ Verdadero/Falso
-document.querySelectorAll('.vf-question').forEach(q => {
+/*document.querySelectorAll('.vf-question').forEach(q => {
   q.addEventListener('click', () => {
     const answer = q.dataset.answer === "true";
     const choice = confirm(`¿Crees que esto es Verdadero?`);
@@ -305,6 +305,6 @@ drops.forEach(drop => {
       drop.textContent += " ❌";
     }
   });
-});
+});*/
 
 /*pantanos*/
