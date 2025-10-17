@@ -1,310 +1,392 @@
-const tabButtons = document.querySelectorAll(".tab-button");
-const tabContents = document.querySelectorAll(".tab-content");
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-tabButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        const target = btn.getAttribute("data-tab");
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #b7f5b7, #a0e2ff);
+    color: #2b2b2b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-        tabButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
+header {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(90deg, #4caf50, #81c784);
+    color: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
 
-        tabContents.forEach(content => {
-            content.classList.remove("active");
-            if (content.id === target) {
-                content.classList.add("active");
-            }
-        });
-    });
-});
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+main {
+    flex: 1;
+    padding: 2rem;
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tab-button {
+    background: #fff;
+    border: 2px solid #4caf50;
+    border-radius: 20px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.tab-button:hover {
+    background: #4caf50;
+    color: white;
+}
+
+.tab-button.active {
+    background: #388e3c;
+    color: white;
+    transform: scale(1.05);
+}
+
+.tab-content {
+    display: none;
+    background: #ffffffd9;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    animation: fadeIn 0.4s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: #4caf50;
+    color: white;
+    font-weight: bold;
+}
+/*Dunas Dunas*/
+.opciones-multiples label {
+  display: block;
+  margin: 0.3rem 0;
+}
+
+.opciones-multiples button {
+  margin-top: 0.5rem;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  background: #4caf50;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.opciones-multiples button:hover {
+  background: #2e7d32;
+}
+
+.emparejar {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.emparejar .col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.draggable {
+  background: #f1f8e9;
+  border: 2px dashed #81c784;
+  padding: 0.5rem;
+  border-radius: 10px;
+  cursor: grab;
+  text-align: center;
+}
+
+.drop {
+  background: #fffde7;
+  border: 2px solid #ffeb3b;
+  padding: 0.8rem;
+  border-radius: 10px;
+  min-width: 200px;
+}
+
+.drop.correcto { background-color: #c8e6c9; border-color: #4caf50; }
+.drop.incorrecto { background-color: #ffcdd2; border-color: #e53935; }
+
 
 /*Dunas Dunas*/
-// --- Verificar selección múltiple ---
-function verificarMultiples(btn, correctas) {
-    const checkboxes = btn.parentElement.querySelectorAll('input[type="checkbox"]');
-    let seleccionadas = [];
-    checkboxes.forEach(ch => {
-        if (ch.checked) seleccionadas.push(ch.value);
-    });
-
-    const correctasStr = correctas.sort().join(',');
-    const seleccionadasStr = seleccionadas.sort().join(',');
-
-    if (correctasStr === seleccionadasStr) {
-        btn.insertAdjacentHTML('afterend', '<p class="correcto">✅ ¡Excelente!</p>');
-    } else {
-        btn.insertAdjacentHTML('afterend', '<p class="incorrecto">❌ Revisa tus respuestas.</p>');
-    }
-
-    btn.disabled = true;
-}
-
-// --- Emparejar (drag & drop) ---
-const draggables = document.querySelectorAll('.draggable');
-const drops = document.querySelectorAll('.drop');
-
-draggables.forEach(el => {
-    el.addEventListener('dragstart', e => {
-        e.dataTransfer.setData('text/plain', el.dataset.value);
-    });
-});
-
-drops.forEach(el => {
-    el.addEventListener('dragover', e => e.preventDefault());
-    el.addEventListener('drop', e => {
-        const valor = e.dataTransfer.getData('text/plain');
-        if (valor === el.dataset.correct) {
-            el.classList.add('correcto');
-            el.innerHTML += ` ✅ (${valor})`;
-        } else {
-            el.classList.add('incorrecto');
-            el.innerHTML += ` ❌ (${valor})`;
-        }
-    });
-});
-
-
-/*Dunas Dunas*/
-
 
 /*minerologia*/
-// --- Ordenar lista ---
-function verificarOrden(id, ordenCorrecto) {
-  const lista = document.querySelector(`#${id}`);
-  const items = Array.from(lista.children).map(li => li.textContent.trim());
-  if (JSON.stringify(items) === JSON.stringify(ordenCorrecto)) {
-    lista.insertAdjacentHTML('afterend', '<p class="correcto">✅ ¡Orden perfecto!</p>');
-  } else {
-    lista.insertAdjacentHTML('afterend', '<p class="incorrecto">❌ Revisa el orden.</p>');
-  }
+.ordenar {
+  list-style: none;
+  background: #f0f4c3;
+  border-radius: 12px;
+  padding: 0.5rem;
+  max-width: 250px;
+  margin: auto;
+}
+.ordenar li {
+  background: #fff9c4;
+  border: 2px dashed #fbc02d;
+  margin: 0.3rem 0;
+  padding: 0.4rem;
+  border-radius: 8px;
+  cursor: grab;
+  text-align: center;
 }
 
-// Permitir drag en lista ordenable
-document.querySelectorAll('.ordenar').forEach(lista => {
-  let dragItem = null;
-  lista.addEventListener('dragstart', e => dragItem = e.target);
-  lista.addEventListener('dragover', e => e.preventDefault());
-  lista.addEventListener('drop', e => {
-    if (e.target.tagName === 'LI' && e.target !== dragItem) {
-      lista.insertBefore(dragItem, e.target.nextSibling);
-    }
-  });
-});
+.reflexion {
+  background: linear-gradient(135deg, #fff8e1, #ffecb3);
+  border-left: 5px solid #f9a825;
+  border-radius: 10px;
+  padding: 1rem;
+}
 
 /*minerologia*/
 
-/*Montaña*/// ===== Drag & Drop reutilizable (ya usado en Dunas/Rocas) =====
-// (si ya existe, no hace falta repetir; este fragmento asegura listeners para nuevos draggables/drops)
-function initDragDropEnSection(sectionId) {
-  const section = document.querySelector(sectionId);
-  if (!section) return;
 
-  const draggables = section.querySelectorAll('.draggable');
-  const drops = section.querySelectorAll('.drop');
-
-  draggables.forEach(el => {
-    el.addEventListener('dragstart', e => {
-      e.dataTransfer.setData('text/plain', el.dataset.value);
-    });
-  });
-
-  drops.forEach(el => {
-    el.addEventListener('dragover', e => e.preventDefault());
-    el.addEventListener('drop', e => {
-      const valor = e.dataTransfer.getData('text/plain');
-      if (valor === el.dataset.correct) {
-        el.classList.add('correcto');
-        el.innerHTML += ` ✅ (${valor})`;
-      } else {
-        el.classList.add('incorrecto');
-        el.innerHTML += ` ❌ (${valor})`;
-      }
-    });
-  });
-}
-
-// Inicializa al cargar
-window.addEventListener('load', () => {
-  initDragDropEnSection('#montanas');
-});
-
-// ===== Actividad de campo: marcar completado =====
-function marcarActividadesCampo(btn) {
-  const container = btn.parentElement;
-  const checks = container.querySelectorAll('.campo-check');
-  const realizadas = [];
-  checks.forEach(c => { if (c.checked) realizadas.push(c.value); });
-  const result = document.getElementById('campo-result');
-  if (realizadas.length === 0) {
-    result.innerHTML = '<p class="incorrecto">Marca al menos una actividad.</p>';
-  } else {
-    result.innerHTML = `<p class="correcto">✅ Actividad(s) completada(s): ${realizadas.join(', ')}</p>`;
-  }
-  btn.disabled = true;
-}
-
-// ===== Generador de idea de juego =====
-function generarIdeaJuego() {
-  const ideas = [
-    'Race to the Summit: equipo compite por responder 10 preguntas sobre formación de montañas y gana quien llegue a la cima.',
-    'Mapa interactivo: colocar pines en un mapa (local) para ubicar montañas estudiadas y explicar su historia.',
-    'Puzzle de elevaciones: ordenar montañas por altura y ganar estrellas por velocidad y exactitud.'
-  ];
-  const idea = ideas[Math.floor(Math.random() * ideas.length)];
-  document.getElementById('idea-juego').textContent = idea;
-}
+/*Montaña*/
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 0.8rem; }
+.card-small { background:#ffffff; padding:0.7rem; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.06); }
+.tabla-montanas { width:100%; border-collapse:collapse; margin-top:0.6rem; }
+.tabla-montanas input { width:100%; border-radius:6px; padding:4px; border:1px solid #c8e6c9; }
+.note { font-size:0.9rem; color:#666; }
+.galeria { display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:0.6rem; }
+.galeria img { width:120px; height:80px; object-fit:cover; border-radius:8px; border:2px dashed #c8e6c9; background:#f5f5f5; }
+.campo-result { margin-top:0.5rem; }
+.idea-juego { margin-top:0.6rem; background:#fff3e0; padding:0.6rem; border-radius:8px; }
 
 
 /*Montaña*/
 
 /*Ecologia*/
-// Inicializa drag/drop para ecologia (si ya existe initDragDropEnSection, se reutiliza)
-window.addEventListener('load', () => { initDragDropEnSection('#ecologia'); });
-
-// Toggle para informe
-function toggleText(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.style.display = (el.style.display === 'none') ? 'block' : 'none';
-}
-
-// Generar recomendación sobre basura
-function generarInformeBasura() {
-  const kg = parseFloat(document.getElementById('kgFamilia').value) || 0;
-  const reco = document.getElementById('recoleccion').value || 'No ingresado';
-  const out = document.getElementById('basura-result');
-  let texto = `Estimación: ${kg.toFixed(2)} kg/familia/día. Recolección: ${reco}. `;
-  if (kg > 2) texto += 'Volumen alto: proponer programas de compostaje y reciclaje. ';
-  else texto += 'Volumen razonable: mantener separación y educación. ';
-  if (reco === 'Malo') texto += 'Sugerencia inmediata: puntos de acopio y campañas de denuncia.';
-  out.innerHTML = `<p class="nota">${texto}</p>`;
-}
-
-// Graficar calidad del aire en canvas (simple)
-function dibujarGraficaAire() {
-  const vals = [];
-  for (let i=1;i<=7;i++) vals.push(parseFloat(document.getElementById('d'+i).value) || 0);
-  const canvas = document.getElementById('graf-air');
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  // Ejes
-  ctx.beginPath(); ctx.moveTo(30,10); ctx.lineTo(30,130); ctx.lineTo(310,130); ctx.strokeStyle = '#ccc'; ctx.stroke();
-  // Max
-  const max = Math.max(...vals,10);
-  // Line
-  ctx.beginPath();
-  vals.forEach((v,i)=>{
-    const x = 40 + i*36;
-    const y = 130 - (v / max) * 100;
-    if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-    // puntos
-    ctx.fillStyle='#2e7d32'; ctx.beginPath(); ctx.arc(x,y,3,0,2*Math.PI); ctx.fill();
-    ctx.fillText(v.toString(), x-8, y-8);
-  });
-  ctx.strokeStyle='#388e3c'; ctx.stroke();
-  ctx.fillStyle='#000'; ctx.fillText('PM2.5 (µg/m³) 7 días', 100, 12);
-}
+.mini-estanque .left { display:flex; flex-direction:column; gap:0.5rem; width:40%; }
+.mini-estanque .right { display:flex; flex-direction:column; gap:0.5rem; width:55%; }
+.mini-estanque { display:flex; gap:1rem; align-items:flex-start; flex-wrap:wrap; }
+.grid-2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:0.8rem; }
+.card-small { background:#fff; padding:0.6rem; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.05); }
+.small { font-size:0.9rem; color:#555; margin-top:0.4rem; }
+.nota { font-size:0.9rem; color:#666; margin-top:0.6rem; }
+.emparejar { display:flex; gap:1rem; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; }
+.emparejar .col { display:flex; flex-direction:column; gap:0.6rem; min-width:180px; }
+.draggable { background:#f1f8e9; border:2px dashed #81c784; padding:0.4rem; border-radius:8px; cursor:grab; text-align:center; }
+.drop { background:#fffde7; border:2px solid #ffeb3b; padding:0.6rem; border-radius:8px; min-height:42px; display:flex; align-items:center; }
+.reflexion { background:linear-gradient(135deg,#fff8e1,#ffecb3); border-left:5px solid #f9a825; padding:0.8rem; border-radius:8px; }
+.opciones-multiples label { display:block; margin:0.3rem 0; }
+.tabla-montanas input, input[type=number], select { padding:6px; border-radius:6px; border:1px solid #e0f2f1; }
 
 /*Ecologia*/
 
+/*Energía renovable
+*/
 
+.seccion-tema {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 10px #cce;
+    max-width: 900px;
+    margin: auto;
+}
+
+.tema-img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.juego {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.juego h3 {
+    background: #3b9e7a;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.vf {
+    margin: 10px 0;
+    padding: 10px;
+    background: #f2f2f2;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.vf.correcto { background: #c8f7c5; }
+.vf.incorrecto { background: #f7c5c5; }
+
+.pregunta button {
+    display: block;
+    margin: 5px 0;
+    background: #e8f7f3;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.pregunta button:hover { background: #c4ede1; }
+.pregunta button.correcto { background: #b8f5b2; }
+.pregunta button.incorrecto { background: #f5b2b2; }
+
+.drag-container {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.fuentes, .zonas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 48%;
+}
+.drag {
+    background: #e3f4ff;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: grab;
+    text-align: center;
+}
+.drop {
+    background: #f1f1f1;
+    border: 2px dashed #ccc;
+    padding: 12px;
+    border-radius: 10px;
+    transition: all 0.2s;
+}
+.drop.ok { background: #b8f5b2; border-color: #4CAF50; }
+.drop.fail { background: #f5b2b2; border-color: #f44336; }
 /*Energía renovable*/
- // Verdadero / Falso
-document.querySelectorAll('.vf').forEach(el => {
-    el.addEventListener('click', () => {
-        const correcto = el.dataset.correcta === 'verdadero';
-        const eleccion = confirm("¿Verdadero o Falso?");
-        const acierto = (eleccion && correcto) || (!eleccion && !correcto);
-        el.classList.remove('correcto', 'incorrecto');
-        el.classList.add(acierto ? 'correcto' : 'incorrecto');
-    });
-});
-
-// Selección múltiple
-document.querySelectorAll('.pregunta').forEach(p => {
-    const correcta = p.dataset.correcta;
-    p.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', () => {
-            p.querySelectorAll('button').forEach(b => b.disabled = true);
-            btn.classList.add(btn.textContent === correcta ? 'correcto' : 'incorrecto');
-        });
-    });
-});
-
-// Arrastrar y soltar
-document.querySelectorAll('.drag').forEach(drag => {
-    drag.addEventListener('dragstart', e => {
-        e.dataTransfer.setData('text/plain', drag.dataset.target);
-        drag.classList.add('dragging');
-    });
-    drag.addEventListener('dragend', () => drag.classList.remove('dragging'));
-});
-
-document.querySelectorAll('.drop').forEach(drop => {
-    drop.addEventListener('dragover', e => e.preventDefault());
-    drop.addEventListener('drop', e => {
-        const data = e.dataTransfer.getData('text/plain');
-        if (data === drop.dataset.accept) {
-            drop.classList.add('ok');
-            drop.textContent += " ✅";
-            const dragging = document.querySelector('.drag.dragging');
-            if (dragging) dragging.style.visibility = 'hidden';
-        } else {
-            drop.classList.add('fail');
-            setTimeout(() => drop.classList.remove('fail'), 1000);
-        }
-    });
-});
-
-/*Energía renovable*/
-
 
 /*pantanos*/
-// ✅ Verdadero/Falso
-document.querySelectorAll('.vf-question').forEach(q => {
-  q.addEventListener('click', () => {
-    const answer = q.dataset.answer === "true";
-    const choice = confirm(`¿Crees que esto es Verdadero?`);
-    q.classList.remove('correct', 'incorrect');
-    if (choice === answer) {
-      q.classList.add('correct');
-    } else {
-      q.classList.add('incorrect');
-    }
-  });
-});
 
-// ✅ Selección múltiple
-document.querySelectorAll('.quiz .option').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const correct = btn.dataset.correct === "true";
-    btn.parentNode.querySelectorAll('.option').forEach(b => b.disabled = true);
-    btn.classList.add(correct ? 'correct' : 'incorrect');
-  });
-});
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
 
-// ✅ Arrastrar y Soltar
-const drags = document.querySelectorAll('.drag');
-const drops = document.querySelectorAll('.drop');
+h1 {
+  text-align: center;
+  color: #2c6e49;
+  margin-bottom: 10px;
+}
 
-drags.forEach(drag => {
-  drag.addEventListener('dragstart', e => {
-    e.dataTransfer.setData('text', drag.dataset.match);
-  });
-});
+.intro {
+  text-align: center;
+  color: #555;
+  margin-bottom: 25px;
+}
 
-drops.forEach(drop => {
-  drop.addEventListener('dragover', e => e.preventDefault());
-  drop.addEventListener('drop', e => {
-    e.preventDefault();
-    const dragged = e.dataTransfer.getData('text');
-    if (dragged === drop.dataset.accept) {
-      drop.classList.add('correct');
-      drop.textContent += " ✅";
-    } else {
-      drop.classList.add('wrong');
-      drop.textContent += " ❌";
-    }
-  });
-});
+.activity {
+  margin: 30px 0;
+  padding: 20px;
+  border: 2px solid #a1d5a1;
+  border-radius: 12px;
+  background: #f7fff8;
+}
 
+.vf-question {
+  background: #e8f5e9;
+  border: 1px solid #b2dfdb;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.vf-question.correct { background: #c8e6c9; }
+.vf-question.incorrect { background: #ffcdd2; }
+
+.quiz p {
+  margin-bottom: 10px;
+}
+
+.option {
+  display: block;
+  background: #dcedc8;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.option:hover { background: #c5e1a5; }
+.option.correct { background: #a5d6a7; }
+.option.incorrect { background: #ef9a9a; }
+
+.drag-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.draggables, .dropzones {
+  width: 45%;
+  min-height: 150px;
+}
+
+.drag {
+  background: #c8e6c9;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  cursor: grab;
+}
+
+.drop {
+  background: #f0f4c3;
+  padding: 12px;
+  margin: 8px 0;
+  border: 2px dashed #c0ca33;
+  border-radius: 8px;
+  min-height: 50px;
+  transition: 0.2s;
+}
+
+.drop.correct { background: #aed581; }
+.drop.wrong { background: #ffab91; }
 /*pantanos*/
