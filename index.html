@@ -1,161 +1,890 @@
-<!doctype html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Juego Energías Renovables — Colombia & Biblia</title>
-  <style>
-    :root{--bg:#0f1724;--card:#0b2545;--accent:#1fb6ff;--text:#e6f0ff}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#071125 0%,#0b1b2b 100%);color:var(--text);display:flex;flex-direction:column;min-height:100vh}
-    header{padding:18px 20px;display:flex;align-items:center;justify-content:space-between}
-    h1{font-size:1.1rem;margin:0}
-    main{flex:1;padding:20px;display:flex;flex-direction:column;gap:18px;align-items:center}
-    nav{display:flex;gap:10px;margin-bottom:15px}
-    nav button{background:var(--card);border:1px solid rgba(255,255,255,0.1);color:var(--text);padding:8px 12px;border-radius:6px;cursor:pointer}
-    nav button.active{background:var(--accent);color:#012233}
-    .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;width:100%;max-width:900px}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.05));border-radius:10px;padding:12px;min-height:90px;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;position:relative;transform-style:preserve-3d;transition:transform .35s;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
-    .card.flipped{transform:rotateY(180deg)}
-    .face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:8px;backface-visibility:hidden;border-radius:10px}
-    .front{background:var(--card);color:var(--text);font-weight:600}
-    .back{background:linear-gradient(90deg,var(--accent),#2dd4bf);color:#03263b;transform:rotateY(180deg);font-size:.9rem;padding:10px;text-align:center}
-    .controls{display:flex;gap:10px;align-items:center}
-    button{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.08);padding:8px 12px;border-radius:8px;cursor:pointer}
-    button.primary{background:var(--accent);color:#012233;border:none}
-    footer{padding:8px 20px;font-size:.85rem;color:rgba(230,240,255,0.7)}
-    .info{max-width:900px;text-align:center}
-    .status{font-weight:700}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maestría en Ecología</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Juegos: Energías Renovables en Colombia y la Biblia</h1>
-    <div class="controls">
-      <button id="shuffleBtn">🔀 Mezclar</button>
-      <button id="resetBtn" class="primary">🔁 Nuevo juego</button>
+    <header>
+        <h1>🌿 Maestría en Ecología 🌎</h1>
+        <p>Explora, aprende y cuida la creación</p>
+    </header>
+
+    <main>
+        <div class="tabs">
+            <button class="tab-button active" data-tab="dunas">Dunas</button>
+            <button class="tab-button" data-tab="mineralogia">Mineralogía</button>
+            <button class="tab-button" data-tab="ecologia">Ecología</button>
+            <button class="tab-button" data-tab="energia">Energía Renovable</button>
+            <button class="tab-button" data-tab="montanas">Montañas</button>
+            <button class="tab-button" data-tab="pantanos">Pantanos y Ciénagas</button>
+            <button class="tab-button" data-tab="especies">Especies en Peligro</button>
+        </div>
+
+        <section id="dunas" class="tab-content active">
+            <h2>🏜️ Dunas</h2>
+            <p>Próximamente: actividades didácticas sobre las dunas y su ecosistema.</p>
+            <h2>🏜️ Dunas</h2>
+<p>Explora el fascinante mundo de las dunas, su formación, vida y mensaje espiritual.</p>
+
+<!-- ACT 1 -->
+<div class="actividad">
+  <h3>1️⃣ ¿Qué son dunas? ¿Cuál es el ingrediente principal?</h3>
+  <p>Selecciona la respuesta correcta:</p>
+  <select onchange="verificarSelect(this, 'Arena')">
+    <option value="">Selecciona una opción</option>
+    <option value="Roca">Roca</option>
+    <option value="Arena">Arena</option>
+    <option value="Tierra seca">Tierra seca</option>
+  </select>
+</div>
+
+<!-- ACT 2 -->
+<div class="actividad">
+  <h3>2️⃣ Cosas necesarias para la formación de una duna</h3>
+  <p>Selecciona las cuatro opciones correctas:</p>
+  <div class="opciones-multiples">
+    <label><input type="checkbox" value="Viento" /> Viento</label>
+    <label><input type="checkbox" value="Arena" /> Arena</label>
+    <label><input type="checkbox" value="Obstáculo" /> Obstáculo</label>
+    <label><input type="checkbox" value="Espacio abierto" /> Espacio abierto</label>
+    <label><input type="checkbox" value="Lluvia constante" /> Lluvia constante</label>
+    <button onclick="verificarMultiples(this, ['Viento','Arena','Obstáculo','Espacio abierto'])">Verificar</button>
+  </div>
+</div>
+
+<!-- ACT 3 -->
+<div class="actividad">
+  <h3>3️⃣ Formas en que el viento mueve la arena</h3>
+  <p>Arrastra cada concepto a su definición correcta.</p>
+  <div class="emparejar">
+    <div class="col">
+      <div class="draggable" draggable="true" data-value="Reptación">Reptación</div>
+      <div class="draggable" draggable="true" data-value="Saltación">Saltación</div>
+      <div class="draggable" draggable="true" data-value="Suspensión">Suspensión</div>
     </div>
-  </header>
+    <div class="col">
+      <div class="drop" data-correct="Reptación">🌾 Movimiento por rodar o deslizarse en el suelo.</div>
+      <div class="drop" data-correct="Saltación">💨 Movimiento en pequeños saltos cortos.</div>
+      <div class="drop" data-correct="Suspensión">☁️ Movimiento en el aire, partículas finas flotando.</div>
+    </div>
+  </div>
+</div>
 
-  <main>
-    <nav>
-      <button id="tabColombia" class="active">🇨🇴 Historia Colombia</button>
-      <button id="tabBiblia">📖 Energías en la Biblia</button>
-    </nav>
+<!-- ACT 4 -->
+<div class="actividad">
+  <h3>4️⃣ Tipos de dunas</h3>
+  <p>Empareja el nombre con su descripción:</p>
+  <div class="emparejar">
+    <div class="col">
+      <div class="draggable" draggable="true" data-value="Barján">Barján</div>
+      <div class="draggable" draggable="true" data-value="Estrella">Estrella o piramidal</div>
+      <div class="draggable" draggable="true" data-value="Longitudinal">Longitudinal (Seif)</div>
+      <div class="draggable" draggable="true" data-value="Parabólica">Parabólica</div>
+    </div>
+    <div class="col">
+      <div class="drop" data-correct="Barján">⤵️ En forma de media luna, común en desiertos.</div>
+      <div class="drop" data-correct="Estrella">⭐ Formada por vientos en varias direcciones.</div>
+      <div class="drop" data-correct="Longitudinal">➡️ Alargada, paralela al viento dominante.</div>
+      <div class="drop" data-correct="Parabólica">🌿 Forma de U abierta hacia el viento, con vegetación.</div>
+    </div>
+  </div>
+</div>
 
-    <div class="info">
-      <p id="infoText">Encuentra los pares: evento y descripción de la historia de energía renovable en Colombia.</p>
-      <p class="status" id="status">Haz clic en dos cartas para descubrir pares.</p>
+<!-- ACT 5 -->
+<div class="actividad">
+  <h3>5️⃣ Sucesión ecológica en dunas</h3>
+  <p>Selecciona la respuesta correcta:</p>
+  <select onchange="verificarSelect(this, 'Cambio progresivo de especies en un ecosistema')">
+    <option value="">Selecciona una opción</option>
+    <option value="Cambio climático">Cambio climático</option>
+    <option value="Cambio progresivo de especies en un ecosistema">Cambio progresivo de especies en un ecosistema</option>
+    <option value="Aumento de temperatura">Aumento de temperatura</option>
+  </select>
+</div>
+
+<!-- ACT 6 -->
+<div class="actividad">
+  <h3>6️⃣ Depresión de deflación</h3>
+  <p>Selecciona la opción correcta:</p>
+  <select onchange="verificarSelect(this, 'Zona donde el viento elimina la arena superficial formando un hueco')">
+    <option value="">Selecciona una opción</option>
+    <option value="Zona de acumulación de arena">Zona de acumulación de arena</option>
+    <option value="Zona donde el viento elimina la arena superficial formando un hueco">Zona donde el viento elimina la arena superficial formando un hueco</option>
+    <option value="Zona de vegetación densa">Zona de vegetación densa</option>
+  </select>
+</div>
+
+<!-- ACT 7 -->
+<div class="actividad">
+  <h3>7️⃣ Plantas pioneras</h3>
+  <p>Verdadero o falso:</p>
+  <div class="pregunta">
+    <p>Las plantas pioneras ayudan a estabilizar la arena y preparar el suelo para otras especies.</p>
+    <button onclick="verificarVF(this, true)">Verdadero</button>
+    <button onclick="verificarVF(this, false)">Falso</button>
+  </div>
+</div>
+
+<!-- ACT 8 -->
+<div class="actividad">
+  <h3>8️⃣ Plantas en dunas</h3>
+  <p>Selecciona los ejemplos que pueden vivir en dunas:</p>
+  <div class="opciones-multiples">
+    <label><input type="checkbox" value="Uña de gato" /> Uña de gato</label>
+    <label><input type="checkbox" value="Cactus" /> Cactus</label>
+    <label><input type="checkbox" value="Manglar" /> Manglar</label>
+    <label><input type="checkbox" value="Gramíneas" /> Gramíneas</label>
+    <button onclick="verificarMultiples(this, ['Uña de gato','Cactus','Gramíneas'])">Verificar</button>
+  </div>
+</div>
+
+<!-- ACT 9 -->
+<div class="actividad">
+  <h3>9️⃣ Animales de dunas</h3>
+  <p>Selecciona los animales adaptados al ambiente de dunas:</p>
+  <div class="opciones-multiples">
+    <label><input type="checkbox" value="Zorro del desierto" /> Zorro del desierto</label>
+    <label><input type="checkbox" value="Camello" /> Camello</label>
+    <label><input type="checkbox" value="Pez payaso" /> Pez payaso</label>
+    <label><input type="checkbox" value="Lagarto" /> Lagarto</label>
+    <button onclick="verificarMultiples(this, ['Zorro del desierto','Camello','Lagarto'])">Verificar</button>
+  </div>
+</div>
+
+<!-- ACT 10 -->
+<div class="actividad">
+  <h3>🔟 Pionero en conservación de dunas</h3>
+  <p><strong>Sugerencia:</strong> En Colombia, el <em>Instituto de Investigaciones Marinas y Costeras (INVEMAR)</em> ha liderado proyectos para proteger las dunas costeras en La Guajira y Santa Marta.</p>
+  <p>En la Iglesia Adventista, puedes mencionar al <em>Dr. Lowell Cooper</em>, quien impulsó programas de administración ecológica cristiana en Sudamérica.</p>
+</div>
+
+<!-- ACT 11 -->
+<div class="actividad">
+  <h3>1️⃣1️⃣ Historia de arena y lección espiritual</h3>
+  <p><strong>Bíblica:</strong> En Génesis 22:17, Dios promete a Abraham que su descendencia será “como la arena del mar”, símbolo de bendición abundante.  
+  Así como cada grano de arena forma una duna, cada acto pequeño de fe fortalece nuestra vida espiritual.</p>
+</div>
+
+<!-- ACT 12 -->
+<div class="actividad">
+  <h3>1️⃣2️⃣ Actividades prácticas sugeridas</h3>
+  <ul>
+    <li>🌵 Visitar un parque desértico o zona árida en Colombia, como el Desierto de la Tatacoa.</li>
+    <li>📷 Tomar fotografías de las formaciones de arena y su flora adaptada.</li>
+    <li>🎨 Dibujar o pintar una escena de dunas y compartirla con tu grupo.</li>
+    <li>🎥 Ver un video sobre conservación de dunas en Latinoamérica.</li>
+  </ul>
+</div>
+
+        </section>
+
+        <section id="mineralogia" class="tab-content">
+            <h2>💎 Mineralogía</h2>
+            <h2>💎 Mineralogía</h2>
+<p>Explora el fascinante mundo de los minerales y las rocas que Dios creó como fundamento de la Tierra.</p>
+
+<!-- ACT 1 -->
+<div class="actividad">
+  <h3>1️⃣ ¿Cuál es la diferencia entre las rocas y los minerales?</h3>
+  <p>Selecciona la respuesta correcta:</p>
+  <select onchange="verificarSelect(this, 'Las rocas están formadas por uno o más minerales; los minerales son sustancias puras y naturales.')">
+    <option value="">Selecciona una opción</option>
+    <option value="Las rocas son más brillantes que los minerales.">Las rocas son más brillantes que los minerales.</option>
+    <option value="Las rocas están formadas por uno o más minerales; los minerales son sustancias puras y naturales.">Las rocas están formadas por uno o más minerales; los minerales son sustancias puras y naturales.</option>
+    <option value="Las rocas y minerales son lo mismo.">Las rocas y minerales son lo mismo.</option>
+  </select>
+</div>
+
+<!-- ACT 2 -->
+<div class="actividad">
+  <h3>2️⃣ Mi colección mineralógica</h3>
+  <p>📦 <strong>Actividad abierta:</strong> Forma una colección de al menos 15 especímenes de roca o mineral.  
+  Etiquétalos con: nombre del colector, fecha y lugar donde fue hallado.</p>
+  <p>💡 <em>Sugerencia:</em> Puedes usar rocas del río, montañas o parques de Colombia.  
+  Usa una caja de huevos o cartón reciclado como exhibidor.</p>
+</div>
+
+<!-- ACT 3 -->
+<div class="actividad">
+  <h3>3️⃣ Clasifica cada roca según su tipo</h3>
+  <p>Arrastra el nombre de la roca al tipo correspondiente:</p>
+
+  <div class="emparejar">
+    <div class="col">
+      <div class="draggable" draggable="true" data-value="Granito">Granito</div>
+      <div class="draggable" draggable="true" data-value="Caliza">Caliza</div>
+      <div class="draggable" draggable="true" data-value="Mármol">Mármol</div>
+      <div class="draggable" draggable="true" data-value="Basalto">Basalto</div>
+      <div class="draggable" draggable="true" data-value="Arenisca">Arenisca</div>
+      <div class="draggable" draggable="true" data-value="Pizarra">Pizarra</div>
+    </div>
+    <div class="col">
+      <div class="drop" data-correct="Granito">🪨 Ígnea</div>
+      <div class="drop" data-correct="Basalto">🔥 Ígnea</div>
+      <div class="drop" data-correct="Caliza">🌊 Sedimentaria</div>
+      <div class="drop" data-correct="Arenisca">🏖️ Sedimentaria</div>
+      <div class="drop" data-correct="Mármol">💎 Metamórfica</div>
+      <div class="drop" data-correct="Pizarra">📘 Metamórfica</div>
+    </div>
+  </div>
+</div>
+
+<!-- ACT 4 -->
+<div class="actividad">
+  <h3>4️⃣ Escala de dureza de Mohs</h3>
+  <p>Ordena de menor a mayor dureza (1 a 10):</p>
+  <ul class="ordenar" id="mohs">
+    <li draggable="true">Cuarzo</li>
+    <li draggable="true">Talco</li>
+    <li draggable="true">Diamante</li>
+    <li draggable="true">Yeso</li>
+    <li draggable="true">Feldespato</li>
+  </ul>
+  <button onclick="verificarOrden('mohs',['Talco','Yeso','Feldespato','Cuarzo','Diamante'])">Verificar</button>
+</div>
+
+<!-- ACT 5 -->
+<div class="actividad">
+  <h3>5️⃣ Conceptos clave</h3>
+  <p>Empareja el término con su definición:</p>
+  <div class="emparejar">
+    <div class="col">
+      <div class="draggable" draggable="true" data-value="Exfoliación">Exfoliación</div>
+      <div class="draggable" draggable="true" data-value="Gravedad específica">Gravedad específica</div>
+      <div class="draggable" draggable="true" data-value="Lustre">Lustre o brillo</div>
+      <div class="draggable" draggable="true" data-value="Color">Color</div>
+      <div class="draggable" draggable="true" data-value="Raya">Raya</div>
+      <div class="draggable" draggable="true" data-value="Cristal">Cristal</div>
+    </div>
+    <div class="col">
+      <div class="drop" data-correct="Exfoliación">🔹 Propiedad de romperse en láminas planas.</div>
+      <div class="drop" data-correct="Gravedad específica">⚖️ Relación entre peso del mineral y volumen de agua.</div>
+      <div class="drop" data-correct="Lustre">✨ Modo en que refleja la luz.</div>
+      <div class="drop" data-correct="Color">🎨 Apariencia externa del mineral.</div>
+      <div class="drop" data-correct="Raya">🧱 Color del polvo que deja sobre una placa.</div>
+      <div class="drop" data-correct="Cristal">🔺 Estructura geométrica natural.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ACT 6 -->
+<div class="actividad">
+  <h3>6️⃣ Usos de rocas y minerales</h3>
+  <p>Arrastra los ejemplos a la categoría correcta:</p>
+  <div class="emparejar">
+    <div class="col">
+      <div class="draggable" draggable="true" data-value="Construcción">Granito en edificaciones</div>
+      <div class="draggable" draggable="true" data-value="Decoración">Cuarzo en joyería</div>
+      <div class="draggable" draggable="true" data-value="Industria">Yeso en cemento</div>
+      <div class="draggable" draggable="true" data-value="Tecnología">Silicio en chips</div>
+    </div>
+    <div class="col">
+      <div class="drop" data-correct="Construcción">🏗️ Rocas (Construcción)</div>
+      <div class="drop" data-correct="Decoración">💍 Minerales (Decoración)</div>
+      <div class="drop" data-correct="Industria">🏭 Rocas (Industria)</div>
+      <div class="drop" data-correct="Tecnología">💻 Minerales (Tecnología)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ACT 7 -->
+<div class="actividad">
+  <h3>7️⃣ Piedras en la Biblia</h3>
+  <p>Selecciona los cuatro pasajes donde una piedra fue significativa:</p>
+  <div class="opciones-multiples">
+    <label><input type="checkbox" value="David y Goliat (1 Samuel 17)"> David y Goliat (1 Samuel 17)</label>
+    <label><input type="checkbox" value="Jacob y Betel (Génesis 28)"> Jacob y Betel (Génesis 28)</label>
+    <label><input type="checkbox" value="Jesús escribe en tierra (Juan 8)"> Jesús escribe en tierra (Juan 8)</label>
+    <label><input type="checkbox" value="Moisés y las tablas de la ley (Éxodo 31)"> Moisés y las tablas de la ley (Éxodo 31)</label>
+    <label><input type="checkbox" value="Piedra del sepulcro (Mateo 28)"> Piedra del sepulcro (Mateo 28)</label>
+    <button onclick="verificarMultiples(this, ['David y Goliat (1 Samuel 17)','Jacob y Betel (Génesis 28)','Moisés y las tablas de la ley (Éxodo 31)','Piedra del sepulcro (Mateo 28)'])">Verificar</button>
+  </div>
+</div>
+
+<!-- ACT 8 -->
+<div class="actividad">
+  <h3>8️⃣ Piedras angulares de la Nueva Jerusalén</h3>
+  <p>Arrastra cada piedra a su color correspondiente (Apocalipsis 21:19-20):</p>
+  <div class="emparejar">
+    <div class="col">
+      <div class="draggable" draggable="true" data-value="Zafiro">Zafiro</div>
+      <div class="draggable" draggable="true" data-value="Ágata">Ágata</div>
+      <div class="draggable" draggable="true" data-value="Amatista">Amatista</div>
+      <div class="draggable" draggable="true" data-value="Esmeralda">Esmeralda</div>
+    </div>
+    <div class="col">
+      <div class="drop" data-correct="Zafiro">💙 Azul</div>
+      <div class="drop" data-correct="Ágata">🤎 Marrón o gris</div>
+      <div class="drop" data-correct="Amatista">💜 Violeta</div>
+      <div class="drop" data-correct="Esmeralda">💚 Verde</div>
+    </div>
+  </div>
+</div>
+
+<!-- ACT FINAL -->
+<div class="actividad reflexion">
+  <h3>✨ Reflexión final</h3>
+  <p><strong>Bíblica:</strong> 1 Pedro 2:5 nos llama “piedras vivas”, edificadas sobre Cristo, la roca eterna.  
+  Así como las rocas soportan el peso de la Tierra, nuestra fe en Jesús nos da firmeza en la vida.</p>
+  <p>💭 ¿Qué tipo de “roca” eres tú en tu comunidad? Fuerte, brillante, o que necesita pulirse…</p>
+</div>
+
+        </section>
+
+        <section id="ecologia" class="tab-content">
+            <h2>🌱 Ecología</h2> 
+<p>Actividades prácticas y didácticas sobre ecosistemas, cadenas alimenticias, conservación y reflexión espiritual.</p>
+
+<!-- ===== ACT 1: Diagrama de estanque (arrastrar animales) ===== -->
+<div class="actividad">
+  <h3>1️⃣ Diagrama: Ecosistema de estanque (arrastra los animales al lugar correcto)</h3>
+  <p class="small">Zona: <strong>Orilla</strong>, <strong>Superficie</strong>, <strong>Fondo</strong>.</p>
+  <div class="emparejar mini-estanque">
+    <div class="col left">
+      <div class="draggable" draggable="true" data-value="Rana">Rana (anfibio)</div>
+      <div class="draggable" draggable="true" data-value="Pez">Pez (pez)</div>
+      <div class="draggable" draggable="true" data-value="Libelula">Libélula (insecto)</div>
+      <div class="draggable" draggable="true" data-value="Alga">Alga (productor)</div>
+      <div class="draggable" draggable="true" data-value="Hoja">Hoja en descomposición (detritus)</div>
+    </div>
+    <div class="col right">
+      <div class="drop" data-correct="Rana">Orilla</div>
+      <div class="drop" data-correct="Libelula">Superficie / aérea</div>
+      <div class="drop" data-correct="Pez">Fondo / agua</div>
+      <div class="drop" data-correct="Alga">Productor (agua)</div>
+      <div class="drop" data-correct="Hoja">Detritus (fondo)</div>
+    </div>
+  </div>
+  <p class="nota">Sugerencia: haz recortes en papel con los nombres y que los niños peguen en el diagrama físico.</p>
+</div>
+
+<!-- ===== ACT 2: Pirámides ecológicas (selección múltiple + inputs) ===== -->
+<div class="actividad">
+  <h3>2️⃣ Pirámides ecológicas</h3>
+  <p>Selecciona un animal de cada grupo (mamífero, ave, reptil, anfibio) de tu entorno; aquí hay ejemplos y plantillas para completar.</p>
+  <div class="grid-2">
+    <div class="card-small">
+      <p><strong>Mamífero</strong></p>
+      <select onchange="verificarSelect(this,'Mamífero ejemplo: Conejo (consumidor primario)')">
+        <option value="">Ej: elige</option>
+        <option>Conejo</option>
+        <option>Sapo</option>
+        <option>Águila</option>
+      </select>
+      <p class="small">Ej. Pirámide: Productores → Herbívoros (conejo) → Carnívoros (zorro)</p>
+    </div>
+    <div class="card-small">
+      <p><strong>Ave</strong></p>
+      <select onchange="verificarSelect(this,'Ave ejemplo: Golondrina (insectívora)')">
+        <option value="">Ej: elige</option>
+        <option>Golondrina</option>
+        <option>Lagarto</option>
+        <option>Conejo</option>
+      </select>
+      <p class="small">Ej. Pirámide: Plantas → Insectos → Golondrina → Halcón</p>
     </div>
 
-    <section class="board" id="board" aria-live="polite"></section>
-
-    <div style="max-width:900px;text-align:center;color:rgba(230,240,255,0.8)">
-      <small>Juego educativo listo para subir a GitHub. Incluye datos de Colombia y referencias bíblicas.</small>
+    <div class="card-small">
+      <p><strong>Reptil</strong></p>
+      <select onchange="verificarSelect(this,'Reptil ejemplo: Lagarto (consumidor secundario)')">
+        <option value="">Ej: elige</option>
+        <option>Lagarto</option>
+        <option>Lechuza</option>
+        <option>Trucha</option>
+      </select>
     </div>
-  </main>
 
-  <footer>
-    Tip: presiona <strong>Nuevo juego</strong> para regenerar y practicar.
-  </footer>
+    <div class="card-small">
+      <p><strong>Anfibio</strong></p>
+      <select onchange="verificarSelect(this,'Anfibio ejemplo: Rana (consumidor secundario/principal según dieta)')">
+        <option value="">Ej: elige</option>
+        <option>Rana</option>
+        <option>Gato</option>
+        <option>Ave</option>
+      </select>
+    </div>
+  </div>
 
-  <script>
-    // ====== Data ======
-    const EVENTS_COLOMBIA = [
-      {id:1, title:'Primera hidroeléctrica en Colombia', desc:'La planta de El Charquito (Bogotá, 1890) marcó el inicio de la energía hidroeléctrica en el país.'},
-      {id:2, title:'EPM y desarrollo hidroeléctrico', desc:'En 1955, Empresas Públicas de Medellín impulsó proyectos clave como Guadalupe y Playas.'},
-      {id:3, title:'Proyecto Hidroituango', desc:'La mayor hidroeléctrica de Colombia, clave en la matriz energética del siglo XXI.'},
-      {id:4, title:'Energía eólica en La Guajira', desc:'Desde 2004, Jepírachi se consolidó como pionero en parques eólicos en Colombia.'},
-      {id:5, title:'Expansión solar', desc:'En la década de 2010-2020 crecieron proyectos solares a gran escala en Cesar y La Guajira.'}
-    ];
+  <p class="small">Plantilla (cópiala en papel): <em>Productores → Consumidores primarios → Consumidores secundarios → Descomponedores</em></p>
+</div>
 
-    const EVENTS_BIBLIA = [
-      {id:1, title:'Energía eólica', desc:'Jonás 1:4 → “El Señor envió un gran viento sobre el mar”'},
-      {id:2, title:'Energía solar', desc:'Josué 10:13 → “Y el sol se detuvo” mostrando poder sobre la energía solar'},
-      {id:3, title:'Energía hidráulica', desc:'Éxodo 14:21 → “El Señor hizo que el mar se retirara con un fuerte viento”'},
-      {id:4, title:'Fuego como energía', desc:'Éxodo 3:2 → “Una zarza ardía en fuego y no se consumía”'},
-      {id:5, title:'Control de lluvias', desc:'1 Reyes 17:1 → “No habrá lluvia ni rocío” hasta que Elías lo diga'}
-    ];
+<!-- ===== ACT 3: Vocabulario (matching drag & drop) ===== -->
+<div class="actividad">
+  <h3>3️⃣ Términos clave — Empareja término ↔ definición</h3>
+  <div class="emparejar">
+    <div class="col">
+      <div class="draggable" draggable="true" data-value="Ecologia">Ecología</div>
+      <div class="draggable" draggable="true" data-value="Comunidad">Comunidad</div>
+      <div class="draggable" draggable="true" data-value="Cadena">Cadena alimenticia</div>
+      <div class="draggable" draggable="true" data-value="Comensalismo">Comensalismo</div>
+      <div class="draggable" draggable="true" data-value="Sucesion">Sucesión ecológica</div>
+      <div class="draggable" draggable="true" data-value="Plancton">Plancton</div>
+      <div class="draggable" draggable="true" data-value="Conservacion">Conservación</div>
+      <div class="draggable" draggable="true" data-value="Climax">Comunidad clímax</div>
+      <div class="draggable" draggable="true" data-value="Eutrofizacion">Eutrofización</div>
+      <div class="draggable" draggable="true" data-value="Bioma">Bioma</div>
+    </div>
+    <div class="col">
+      <div class="drop" data-correct="Ecologia">Estudio de las relaciones entre los seres vivos y su ambiente</div>
+      <div class="drop" data-correct="Comunidad">Conjunto de poblaciones que coexisten en un área</div>
+      <div class="drop" data-correct="Cadena">Serie de seres vivos donde cada uno come al anterior</div>
+      <div class="drop" data-correct="Comensalismo">Relación donde uno se beneficia y el otro no se perjudica</div>
+      <div class="drop" data-correct="Sucesion">Cambio progresivo en las especies de un ecosistema</div>
+      <div class="drop" data-correct="Plancton">Organismos microscópicos que flotan en agua dulce o salada</div>
+      <div class="drop" data-correct="Conservacion">Protección y manejo sostenible de la naturaleza</div>
+      <div class="drop" data-correct="Climax">Comunidad estable y madura que ha alcanzado equilibrio</div>
+      <div class="drop" data-correct="Eutrofizacion">Enriquecimiento excesivo de nutrientes que causa blooms</div>
+      <div class="drop" data-correct="Bioma">Gran unidad ecológica con clima y comunidades típicas</div>
+    </div>
+  </div>
+</div>
 
-    // ====== Core functions ======
-    function makeDeck(events){
-      const deck = [];
-      events.forEach(ev=>{
-        deck.push({type:'title', id:ev.id, text:ev.title});
-        deck.push({type:'desc', id:ev.id, text:ev.desc});
-      });
-      return deck;
-    }
+<!-- ===== ACT 4: Observaciones de campo + informe --> 
+<div class="actividad">
+  <h3>4️⃣ Observaciones de campo + Informe (≈700 palabras)</h3>
+  <p>Ejemplo de informe (puedes copiar, adaptar o usar como guía):</p>
+  <button onclick="toggleText('informe-full')">Mostrar/ocultar informe de ejemplo (~700 palabras)</button>
+  <div id="informe-full" style="display:none; margin-top:0.8rem; background:#fff; padding:0.8rem; border-radius:8px; max-height:420px; overflow:auto;">
+    <!-- Informe de ejemplo: ~700 palabras -->
+    <p><strong>Informe de campo y estudio bibliográfico — Humedal local</strong></p>
+    <p>Observaciones de campo (≈350 palabras): El día 12 de marzo realicé observaciones en el humedal del barrio (estanque comunitario). El lugar presenta agua clara en la parte superficial, con presencia de hojas en descomposición y una franja de juncos en la orilla. Durante una hora anoté 12 especies visibles: libélulas, hembras de rana, pequeños peces (≈3–4 cm), caracoles, moscas de la arena y una pareja de garzas a distancia. Noté que las libélulas se posaban en juncos y que su actividad disminuó al mediodía; las ranas eran más activas al atardecer. El agua superficial tenía una ligera película verdosa en el lado norte — indicio de crecimiento algal local. En la orilla sur encontré restos de plástico y residuos de comida, lo que sugiere influencia humana directa en la calidad del hábitat. Las temperaturas rondaban 22–25 °C y la zona presentó poco viento.</p>
+    <p>Estudio bibliográfico (≈350 palabras): Revisé dos fuentes: un capítulo sobre humedales urbanos en un manual de ecología regional y un artículo sobre eutrofización en pequeños cuerpos de agua. Ambos textos resaltan que la entrada de nutrientes (restos orgánicos, detergentes, escorrentía) promueve el crecimiento de algas y cianobacterias, reduciendo oxígeno disuelto y poniendo en riesgo especies sensibles como anfibios. Las recomendaciones comunes incluyen: reducir la entrada de residuos, crear franjas de vegetación filtrante, promover educación comunitaria y muestreo periódico de calidad del agua. Comparando mis observaciones con la bibliografía, la película verdosa y los residuos encontrados concuerdan con un proceso inicial de enriquecimiento de nutrientes; la presencia de ranas y libélulas indica que aún existe biodiversidad funcional, pero la persistencia de residuos puede acelerar la degradación. Propongo como medidas: instalar contenedores de basura cercanos, organizar jornadas de limpieza y plantar especies nativas de ribera para estabilizar sedimentos y absorber nutrientes. Además, involucrar a escuelas locales para monitoreo participativo. En conclusión, el humedal es un ecosistema valioso que requiere acciones simples y sostenibles; con pequeñas mejoras comunitarias se puede conservar su biodiversidad y función ecológica.</p>
+  </div>
+</div>
 
-    function shuffle(array){
-      for(let i=array.length-1;i>0;i--){
-        const j=Math.floor(Math.random()*(i+1));
-        [array[i],array[j]]=[array[j],array[i]];
-      }
-      return array;
-    }
+<!-- ===== ACT 5: Definición de ecosistema y factores ===== -->
+<div class="actividad">
+  <h3>5️⃣ ¿Qué es un ecosistema? Bases biológicas y factores físicos</h3>
+  <p>Selecciona la mejor definición:</p>
+  <select onchange="verificarSelect(this,'Sistema formado por organismos vivos y factores abióticos que interactúan y mantienen flujo de energía y ciclos de materia')">
+    <option value="">Selecciona</option>
+    <option>Solo plantas y animales de una zona</option>
+    <option>Sistema formado por organismos vivos y factores abióticos que interactúan y mantienen flujo de energía y ciclos de materia</option>
+    <option>Solo lagos y montañas</option>
+  </select>
+  <p class="small">Bases biológicas: productores, consumidores, descomponedores. Factores físicos: luz, temperatura, agua, suelo, pH, nutrientes.</p>
+</div>
 
-    const boardEl=document.getElementById('board');
-    const statusEl=document.getElementById('status');
-    const shuffleBtn=document.getElementById('shuffleBtn');
-    const resetBtn=document.getElementById('resetBtn');
-    const tabColombia=document.getElementById('tabColombia');
-    const tabBiblia=document.getElementById('tabBiblia');
-    const infoText=document.getElementById('infoText');
+<!-- ===== ACT 6: Gestión de basura en la comunidad (actividad investigativa) ===== -->
+<div class="actividad">
+  <h3>6️⃣ ¿Cómo se elimina la basura en tu comunidad?</h3>
+  <p>Plantilla interactiva: escribe estimados y sugerencias (puedes editar el texto y luego mostrar resultado).</p>
+  <label>Estimación kg/familia/día: <input id="kgFamilia" type="number" step="0.1" placeholder="ej. 1.2"></label>
+  <label>Nivel de recolección (bueno/regular/malo): 
+    <select id="recoleccion">
+      <option value="">Selecciona</option>
+      <option>Bueno</option>
+      <option>Regular</option>
+      <option>Malo</option>
+    </select>
+  </label>
+  <button onclick="generarInformeBasura()">Generar recomendación</button>
+  <div id="basura-result" style="margin-top:0.6rem;"></div>
+</div>
 
-    let activeSet='colombia';
-    let deck, firstCard=null, secondCard=null, lock=false, matches=0, attempts=0;
+<!-- ===== ACT 7: Monitoreo calidad del aire (simplificado) ===== -->
+<div class="actividad">
+  <h3>7️⃣ Seguimiento de calidad del aire (actividad simplificada)</h3>
+  <p>Registra valores de PM2.5 durante 7 días (ejemplo) y genera una mini-gráfica:</p>
+  <div class="grid-2">
+    <div>
+      <label>Día 1: <input class="pm" type="number" id="d1" value="12"></label><br>
+      <label>Día 2: <input class="pm" type="number" id="d2" value="18"></label><br>
+      <label>Día 3: <input class="pm" type="number" id="d3" value="25"></label><br>
+      <label>Día 4: <input class="pm" type="number" id="d4" value="40"></label><br>
+      <label>Día 5: <input class="pm" type="number" id="d5" value="20"></label><br>
+      <label>Día 6: <input class="pm" type="number" id="d6" value="15"></label><br>
+      <label>Día 7: <input class="pm" type="number" id="d7" value="22"></label><br>
+      <button onclick="dibujarGraficaAire()">Generar gráfica</button>
+    </div>
+    <div>
+      <canvas id="graf-air" width="320" height="140" style="border:1px solid #eee; background:#fff;"></canvas>
+      <p class="small">Nota: usa papel cuadriculado para trabajo final o descarga la imagen del canvas.</p>
+    </div>
+  </div>
+</div>
 
-    function render(){
-      boardEl.innerHTML='';
-      deck.forEach((card, idx)=>{
-        const el=document.createElement('button');
-        el.className='card';
-        el.setAttribute('data-idx', idx);
-        el.innerHTML=`<div class="face front">❓</div><div class="face back">${escapeHtml(card.text)}</div>`;
-        el.addEventListener('click',()=>onCardClick(el, card));
-        boardEl.appendChild(el);
-      });
-      updateStatus();
-    }
+<!-- ===== ACT 8: 10 acciones para mejorar el entorno ===== -->
+<div class="actividad">
+  <h3>8️⃣ 10 formas de mejorar tu entorno (elige 4 y marca realizadas)</h3>
+  <ol id="acciones-list">
+    <li>Reducir uso de plásticos de un solo uso</li>
+    <li>Organizar limpieza comunitaria</li>
+    <li>Compostar residuos orgánicos</li>
+    <li>Plantar árboles o franjas ribereñas</li>
+    <li>Promover reciclaje y separación</li>
+    <li>Evitar quema de basura</li>
+    <li>Educar en la escuela sobre ecología</li>
+    <li>Implementar huertos escolares</li>
+    <li>Reportar vertimientos al municipio</li>
+    <li>Participar en monitoreo ciudadano</li>
+  </ol>
+  <div class="opciones-multiples">
+    <label><input type="checkbox" value="1"> 1</label>
+    <label><input type="checkbox" value="2"> 2</label>
+    <label><input type="checkbox" value="3"> 3</label>
+    <label><input type="checkbox" value="4"> 4</label>
+    <button onclick="verificarMultiples(this,['1','2','3','4'])">Marcar primeras 4 realizadas (ejemplo)</button>
+  </div>
+</div>
 
-    function onCardClick(el, card){
-      if(lock||el.classList.contains('matched')||el.classList.contains('flipped'))return;
-      el.classList.add('flipped');
-      if(!firstCard){firstCard={el,card};return;}
-      secondCard={el,card};attempts++;checkMatch();
-    }
+<!-- ===== ACT 9: Cita Espíritu de Profecía y texto bíblico ===== -->
+<div class="actividad reflexion">
+  <h3>9️⃣ Cita y texto bíblico</h3>
+  <p><strong>Espíritu de Profecía (sugerencias):</strong> consulte obras de Ellen G. White como <em>Patriarcas y Profetas</em> y <em>El ministerio de curación</em> para referencias que promueven la mayordomía y cuidado de la creación.</p>
+  <p><strong>Texto bíblico sugerido:</strong> <em>Génesis 2:15</em> — "Tomó, pues, Jehová Dios al hombre, y lo puso en el huerto de Edén, para que lo labrara y lo guardase." (fundamento para la mayordomía).</p>
+  <p class="small">Explicación: estos textos refuerzan la idea de que los seres humanos son responsables de cuidar la creación; aplica en acciones concretas: limpieza, reciclaje y conservación local.</p>
+</div>
 
-    function checkMatch(){
-      lock=true;
-      const match=firstCard.card.id===secondCard.card.id&&firstCard.card.type!==secondCard.card.type;
-      if(match){
-        setTimeout(()=>{firstCard.el.classList.add('matched');secondCard.el.classList.add('matched');resetPick();matches++;},350);
-      }else{
-        setTimeout(()=>{firstCard.el.classList.remove('flipped');secondCard.el.classList.remove('flipped');resetPick();},700);
-      }
-    }
+        </section>
 
-    function resetPick(){firstCard=null;secondCard=null;lock=false;updateStatus();if(matches===5){statusEl.textContent=`¡Ganaste en ${attempts} intentos!`;}}
+        <section id="energia" class="tab-content">
+            <h2>⚡ Energía Renovable</h2>
 
-    function updateStatus(){statusEl.textContent=`Pares: ${matches}/5 — Intentos: ${attempts}`;}
+        <!-- JUEGO 1 - VERDADERO O FALSO -->
+        <div class="juego">
+            <h3>Verdadero o Falso</h3>
+            <div class="vf" data-correcta="verdadero">La energía renovable proviene de recursos que se pueden reponer naturalmente.</div>
+            <div class="vf" data-correcta="falso">La energía fósil es un tipo de energía renovable.</div>
+            <div class="vf" data-correcta="verdadero">El sol es una fuente de energía renovable.</div>
+            <div class="vf" data-correcta="verdadero">Las energías renovables no producen contaminación al ser utilizadas.</div>
+            <div class="vf" data-correcta="falso">Todas las fuentes de energía renovable requieren viento para funcionar.</div>
+        </div>
 
-    function startNewGame(){
-      const events=activeSet==='colombia'?EVENTS_COLOMBIA:EVENTS_BIBLIA;
-      deck=shuffle(makeDeck(events));
-      firstCard=null;secondCard=null;lock=false;matches=0;attempts=0;
-      render();
-    }
+        <!-- JUEGO 2 - SELECCIÓN MÚLTIPLE -->
+        <div class="juego">
+            <h3>Selección múltiple</h3>
 
-    function escapeHtml(str){return String(str).replace(/[&<>"']/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;','\'':'&#39;'}[s]));}
+            <div class="pregunta" data-correcta="Energía solar">
+                <p>¿Cuál de las siguientes es una fuente de energía renovable?</p>
+                <button>Carbón</button>
+                <button>Energía solar</button>
+                <button>Gas natural</button>
+            </div>
 
-    shuffleBtn.addEventListener('click',()=>{deck=shuffle(deck);render();});
-    resetBtn.addEventListener('click',startNewGame);
-    tabColombia.addEventListener('click',()=>{activeSet='colombia';tabColombia.classList.add('active');tabBiblia.classList.remove('active');infoText.textContent='Encuentra los pares: evento y descripción de la historia de energía renovable en Colombia.';startNewGame();});
-    tabBiblia.addEventListener('click',()=>{activeSet='biblia';tabBiblia.classList.add('active');tabColombia.classList.remove('active');infoText.textContent='Encuentra los pares: concepto de energía y su cita bíblica.';startNewGame();});
+            <div class="pregunta" data-correcta="Porque es ilimitada y menos contaminante">
+                <p>¿Por qué la energía renovable es importante?</p>
+                <button>Porque es ilimitada y menos contaminante</button>
+                <button>Porque produce más humo</button>
+                <button>Porque solo se usa en fábricas</button>
+            </div>
 
-    // Init
-    startNewGame();
-  </script>
+            <div class="pregunta" data-correcta="Energía hidráulica">
+                <p>¿Cuál de las siguientes fuentes usa el movimiento del agua?</p>
+                <button>Energía solar</button>
+                <button>Energía hidráulica</button>
+                <button>Energía geotérmica</button>
+            </div>
+
+            <div class="pregunta" data-correcta="A veces dependen del clima">
+                <p>¿Cuál es una desventaja de las energías renovables?</p>
+                <button>A veces dependen del clima</button>
+                <button>Siempre son más baratas</button>
+                <button>No necesitan mantenimiento</button>
+            </div>
+
+            <div class="pregunta" data-correcta="Energía geotérmica">
+                <p>¿Qué fuente de energía se obtiene del calor interno de la Tierra?</p>
+                <button>Energía geotérmica</button>
+                <button>Energía eólica</button>
+                <button>Energía marina</button>
+            </div>
+        </div>
+
+        <!-- JUEGO 3 - ARRASTRAR Y SOLTAR -->
+        <div class="juego">
+            <h3>Arrastra y suelta: relaciona cada fuente con su descripción</h3>
+            <div class="drag-container">
+                <div class="fuentes">
+                    <div draggable="true" class="drag" data-target="sol">☀️ Energía solar</div>
+                    <div draggable="true" class="drag" data-target="viento">💨 Energía eólica</div>
+                    <div draggable="true" class="drag" data-target="tierra">🔥 Energía geotérmica</div>
+                    <div draggable="true" class="drag" data-target="agua">💧 Energía hidráulica</div>
+                    <div draggable="true" class="drag" data-target="olas">🌊 Energía marina</div>
+                </div>
+                <div class="zonas">
+                    <div class="drop" data-accept="tierra">Usa el calor interno de la Tierra</div>
+                    <div class="drop" data-accept="viento">Aprovecha la fuerza del viento</div>
+                    <div class="drop" data-accept="agua">Usa el movimiento del agua</div>
+                    <div class="drop" data-accept="sol">Aprovecha la radiación del sol</div>
+                    <div class="drop" data-accept="olas">Usa el movimiento de las olas</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JUEGO 4 - VERDADERO O FALSO FINAL -->
+        <div class="juego">
+            <h3>Verdadero o Falso</h3>
+            <div class="vf" data-correcta="verdadero">Muchos gobiernos invierten en energía renovable para reducir la contaminación.</div>
+            <div class="vf" data-correcta="falso">La energía renovable no se usa en la industria ni en los comercios.</div>
+            <div class="vf" data-correcta="verdadero">Los paneles solares y los molinos de viento son ejemplos de tecnologías renovables.</div>
+        </div>
+    </div>
+        </section>
+
+        <section id="montanas" class="tab-content">
+            <h2>🏔️ Montañas</h2> 
+<p>Aprende sobre la formación, tipos, historia bíblica y ejemplos reales de montañas — con actividades interactivas y reflexión.</p>
+
+<!-- ===== ACT 1: Definiciones (Selección múltiple) ===== -->
+<div class="actividad">
+  <h3>1️⃣ Definir los siguientes términos</h3>
+  <div class="grid-2">
+    <div class="card-small">
+      <p><strong>a. Orología</strong></p>
+      <select onchange="verificarSelect(this, 'Estudio y descripción de las montañas y cadenas montañosas')">
+        <option value="">Selecciona</option>
+        <option>Estudio de ríos</option>
+        <option>Estudio y descripción de las montañas y cadenas montañosas</option>
+        <option>Mapa de volcanes</option>
+      </select>
+    </div>
+
+    <div class="card-small">
+      <p><strong>b. Montaña</strong></p>
+      <select onchange="verificarSelect(this, 'Elevación natural del terreno, generalmente con alturas y pendientes pronunciadas')">
+        <option value="">Selecciona</option>
+        <option>Pequeña colina</option>
+        <option>Elevación natural del terreno, generalmente con alturas y pendientes pronunciadas</option>
+        <option>Depresión del terreno</option>
+      </select>
+    </div>
+
+    <div class="card-small">
+      <p><strong>c. Cordillera</strong></p>
+      <select onchange="verificarSelect(this, 'Conjunto de montañas alineadas y relacionadas geológicamente')">
+        <option value="">Selecciona</option>
+        <option>Conjunto de montañas alineadas y relacionadas geológicamente</option>
+        <option>Un solo volcán</option>
+        <option>Una playa rocosa</option>
+      </select>
+    </div>
+
+    <div class="card-small">
+      <p><strong>d. Magma</strong></p>
+      <select onchange="verificarSelect(this, 'Roca fundida dentro de la corteza o manto terrestre')">
+        <option value="">Selecciona</option>
+        <option>Roca sólida de la cima</option>
+        <option>Roca fundida dentro de la corteza o manto terrestre</option>
+        <option>Tipo de vegetal</option>
+      </select>
+    </div>
+
+    <div class="card-small">
+      <p><strong>e. Volcán</strong></p>
+      <select onchange="verificarSelect(this, 'Abertura en la corteza por donde salen magma, gases y ceniza')">
+        <option value="">Selecciona</option>
+        <option>Una cueva</option>
+        <option>Abertura en la corteza por donde salen magma, gases y ceniza</option>
+        <option>Un lago de montaña</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ACT 2: Formas de formación (Seleccion múltiple/checkbox) ===== -->
+<div class="actividad">
+  <h3>2️⃣ Tres formas en que se han formado las montañas</h3>
+  <p>Marca las tres correctas:</p>
+  <div class="opciones-multiples">
+    <label><input type="checkbox" value="Colisión de placas" /> Colisión de placas tectónicas</label>
+    <label><input type="checkbox" value="Volcanismo" /> Volcanismo</label>
+    <label><input type="checkbox" value="Erosión" /> Erosión y levantamiento isostático</label>
+    <label><input type="checkbox" value="Formación coralina" /> Formación coralina</label>
+    <button onclick="verificarMultiples(this, ['Colisión de placas','Volcanismo','Erosión'])">Verificar</button>
+  </div>
+</div>
+
+<!-- ===== ACT 3: Diez montañas (lista editable con ejemplos) ===== -->
+<div class="actividad">
+  <h3>3️⃣ Elegir diez montañas (incluye 2 cercanas)</h3>
+  <p>Ejemplo ya llenado para que lo uses o edites. Puedes reemplazar y completar con 10 montañas.</p>
+  <div class="coleccion-montanas">
+    <table class="tabla-montanas">
+      <thead><tr><th>#</th><th>Nombre</th><th>Altura (m)</th><th>País / Región</th><th>Cordillera</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><input value="Nevado del Ruiz"></td><td><input value="5265"></td><td><input value="Colombia, Tolima"></td><td><input value="Cordillera Central (Andes)"></td></tr>
+        <tr><td>2</td><td><input value="Monserrate"></td><td><input value="3152"></td><td><input value="Colombia, Bogotá"></td><td><input value="Cordillera Oriental (Andes)"></td></tr>
+        <tr><td>3</td><td><input value="Aconcagua"></td><td><input value="6961"></td><td><input value="Argentina"></td><td><input value="Andes"></td></tr>
+        <tr><td>4</td><td><input value="Everest"></td><td><input value="8848"></td><td><input value="Nepal / China"></td><td><input value="Himalaya"></td></tr>
+        <tr><td>5</td><td><input value="Kilimanjaro"></td><td><input value="5895"></td><td><input value="Tanzania"></td><td><input value="África oriental (montaña aislada)"></td></tr>
+        <tr><td>6</td><td><input value="Mount Fuji"></td><td><input value="3776"></td><td><input value="Japón"></td><td><input value="— (volcán aislado)"></td></tr>
+        <tr><td>7</td><td><input value="Denali (McKinley)"></td><td><input value="6190"></td><td><input value="USA, Alaska"></td><td><input value="Cordillera de Alaska"></td></tr>
+        <tr><td>8</td><td><input value="Elbrus"></td><td><input value="5642"></td><td><input value="Rusia"></td><td><input value="Cáucaso"></td></tr>
+        <tr><td>9</td><td><input value="Montaña de la Mesa (Table Mountain)"></td><td><input value="1086"></td><td><input value="Sudáfrica"></td><td><input value="—"></td></tr>
+        <tr><td>10</td><td><input value="Pico Bolívar"></td><td><input value="5007"></td><td><input value="Venezuela"></td><td><input value="Cordillera de Mérida (Andes)"></td></tr>
+      </tbody>
+    </table>
+    <p class="nota">Sugerencia: cambia las filas 1 y 2 por las montañas reales cercanas a tus participantes.</p>
+  </div>
+</div>
+
+<!-- ===== ACT 4: Emparejar descripciones (drag & drop) ===== -->
+<div class="actividad">
+  <h3>4️⃣ Combina cada descripción con su respuesta correcta</h3>
+  <p>Arrastra el enunciado a la definición adecuada:</p>
+  <div class="emparejar">
+    <div class="col">
+      <div class="draggable" draggable="true" data-value="Pliegue">Pliegue: plegamiento de capas por presión tectónica</div>
+      <div class="draggable" draggable="true" data-value="Volcánico">Volcánico: acumulación de material expulsado por actividad</div>
+      <div class="draggable" draggable="true" data-value="Erosivo">Erosivo: elevaciones formadas por erosión diferencial</div>
+    </div>
+    <div class="col">
+      <div class="drop" data-correct="Pliegue">🌀 Formación por compresión y plegamiento</div>
+      <div class="drop" data-correct="Volcánico">🔥 Formada por erupciones y depósitos piroclásticos</div>
+      <div class="drop" data-correct="Erosivo">🌊 Formada por erosión que deja relieves más resistentes</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ACT 5: Montañas en la Biblia ===== -->
+<div class="actividad">
+  <h3>5️⃣ Montañas mencionadas en la Biblia</h3>
+  <p>Selecciona las montañas y escribe el evento asociado (ejemplos por defecto):</p>
+  <div class="opciones-multiples">
+    <label><input type="checkbox" value="Ararat" /> Ararat — (Lugar donde reposó el arca de Noé; Génesis 8:4)</label>
+    <label><input type="checkbox" value="Monte Carmelo" /> Monte Carmelo — (Elías y el desafío a los profetas de Baal; 1 Reyes 18)</label>
+    <label><input type="checkbox" value="Monte Sinaí" /> Monte Sinaí — (Moisés recibe los Diez Mandamientos; Éxodo 19–20)</label>
+    <label><input type="checkbox" value="Monte Nebo" /> Monte Nebo — (Moisés vio la Tierra Prometida; Deuteronomio 34)</label>
+    <button onclick="verificarMultiples(this, ['Ararat','Monte Carmelo','Monte Sinaí','Monte Nebo'])">Verificar</button>
+  </div>
+</div>
+
+<!-- ===== ACT 6: Actividad de campo (marcar completada / sugerencias) ===== -->
+<div class="actividad">
+  <h3>6️⃣ Actividad de campo</h3>
+  <p>Elige una opción y marca cuando la hayas completado. Si no puedes subir, usa la opción de video.</p>
+  <div class="campo-opciones">
+    <label><input type="checkbox" class="campo-check" value="Visita" /> Visité una montaña y conté mi experiencia</label>
+    <label><input type="checkbox" class="campo-check" value="Video" /> Vi un video de montaña y resumí</label>
+    <label><input type="checkbox" class="campo-check" value="Modelo" /> Hice un modelo 3D o presentación</label>
+    <button onclick="marcarActividadesCampo(this)">Marcar completado</button>
+  </div>
+  <div id="campo-result" class="campo-result"></div>
+</div>
+
+<!-- ===== ACT 7: Recitar versículo ===== -->
+<div class="actividad">
+  <h3>7️⃣ Versículo sobre montañas</h3>
+  <p>Selecciona uno y recítalo (puedes escuchar la versión aquí):</p>
+  <div class="opciones-multiples">
+    <label><input type="radio" name="versiculo" value="Salmos 90:2" /> Salmos 90:2 — "Antes que naciesen los montes..."</label>
+    <label><input type="radio" name="versiculo" value="Isaías 52:7" /> Isaías 52:7 — "¡Cuán hermosos sobre los montes..."</label>
+    <label><input type="radio" name="versiculo" value="Isaías 55:12" /> Isaías 55:12 — "Porque con gozo saldréis..."</label>
+  </div>
+</div>
+
+<!-- ===== ACT 8: Crear un juego pequeño (Generador simple) ===== -->
+<div class="actividad">
+  <h3>8️⃣ Crea un juego rápido</h3>
+  <p>Genera una idea de juego educativa (se sugiere una y puedes personalizarla):</p>
+  <button onclick="generarIdeaJuego()">Generar idea de juego</button>
+  <div id="idea-juego" class="idea-juego"></div>
+</div>
+
+<!-- ===== Reflexión final ===== -->
+<div class="actividad reflexion">
+  <h3>✨ Reflexión final</h3>
+  <p><strong>Bíblica:</strong> "Las montañas y los collados romperán en canto delante de ti" — Isaías 55:12.  
+  Lección: las montañas nos recuerdan la grandeza de Dios y nos invitan a buscar perspectiva; subiendo a la cima aprendemos a ver más lejos y a confiar más alto.</p>
+</div>
+
+<!-- Galería / placeholders para imágenes -->
+<div class="actividad">
+  <h3>Galería — agrega tus imágenes</h3>
+  <p>Reemplaza los <code>&lt;img src=&quot;&quot;&gt;</code> con las URLs cuando las tengas.</p>
+  <div class="galeria">
+    <img src="" alt="Montaña 1">
+    <img src="" alt="Montaña 2">
+    <img src="" alt="Montaña 3">
+    <img src="" alt="Montaña 4">
+  </div>
+</div>
+
+        </section>
+
+        <section id="pantanos" class="tab-content">
+            <h2>🪴 Pantanos y Ciénagas</h2>
+            <p class="intro">Explora el fascinante mundo de los pantanos y ciénagas con actividades interactivas.</p>
+
+    <!-- 1. Verdadero / Falso -->
+    <section class="activity">
+      <h2>🧠 Actividad 1: Verdadero o Falso</h2>
+      <div class="vf-question" data-answer="true">Los pantanos son ecosistemas donde el agua cubre el suelo durante gran parte del año.</div>
+      <div class="vf-question" data-answer="false">Los pantanos solo existen en zonas desérticas.</div>
+      <div class="vf-question" data-answer="true">Las ciénagas y los pantanos son hábitats importantes para muchas especies animales.</div>
+      <div class="vf-question" data-answer="false">Las plantas carnívoras crecen en cualquier tipo de suelo seco.</div>
+      <div class="vf-question" data-answer="true">El musgo de turbera ayuda a retener el agua en los pantanos.</div>
+    </section>
+
+    <!-- 2. Selección múltiple -->
+    <section class="activity">
+      <h2>🔍 Actividad 2: Selección múltiple</h2>
+      <div class="quiz">
+        <p>¿Cuál de las siguientes opciones describe mejor un pantano?</p>
+        <button class="option" data-correct="true">Un área con agua estancada y vegetación abundante.</button>
+        <button class="option">Un terreno árido y seco sin vida vegetal.</button>
+        <button class="option">Un bosque con suelo rocoso.</button>
+      </div>
+
+      <div class="quiz">
+        <p>¿Qué tipo de planta es común en los pantanos?</p>
+        <button class="option">Cactus del desierto</button>
+        <button class="option" data-correct="true">Plantas carnívoras como la Venus atrapamoscas</button>
+        <button class="option">Árboles de pino seco</button>
+      </div>
+
+      <div class="quiz">
+        <p>¿Qué diferencia principal hay entre un pantano y una ciénaga?</p>
+        <button class="option" data-correct="true">El pantano tiene más árboles y la ciénaga más hierbas.</button>
+        <button class="option">El pantano está en el mar y la ciénaga en el desierto.</button>
+        <button class="option">No hay ninguna diferencia.</button>
+      </div>
+    </section>
+
+    <!-- 3. Arrastrar y soltar (pares) -->
+    <section class="activity">
+      <h2>🎯 Actividad 3: Une los pares</h2>
+      <p>Arrastra cada elemento a su descripción correcta.</p>
+      <div class="drag-container">
+        <div class="draggables">
+          <div class="drag" draggable="true" data-match="musgo">Musgo de turbera</div>
+          <div class="drag" draggable="true" data-match="venus">Venus atrapamoscas</div>
+          <div class="drag" draggable="true" data-match="manglar">Manglar</div>
+        </div>
+        <div class="dropzones">
+          <div class="drop" data-accept="musgo">Absorbe y retiene grandes cantidades de agua.</div>
+          <div class="drop" data-accept="venus">Planta carnívora que atrapa insectos.</div>
+          <div class="drop" data-accept="manglar">Árbol que crece en zonas húmedas costeras.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Verdadero/Falso sobre animales -->
+    <section class="activity">
+      <h2>🐊 Actividad 4: Animales de los pantanos</h2>
+      <div class="vf-question" data-answer="true">El caimán es un habitante común de los pantanos.</div>
+      <div class="vf-question" data-answer="false">El oso polar vive principalmente en los pantanos tropicales.</div>
+      <div class="vf-question" data-answer="true">Las ranas y sapos dependen del agua de los pantanos para reproducirse.</div>
+      <div class="vf-question" data-answer="false">Los pantanos carecen de aves.</div>
+    </section>
+
+  </div>
+        </section>
+
+        <section id="especies" class="tab-content">
+            <h2>🐉 Especies en Peligro</h2>
+            <p>Próximamente: el ajolote y otros héroes de la biodiversidad.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Hecho con 🌎 y 💚 por Conquistadores</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
